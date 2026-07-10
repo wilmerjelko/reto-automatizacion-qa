@@ -8,7 +8,7 @@ La solución está dividida de forma modular en dos carpetas dentro del reposito
 
 ---
 
-## 🛠️ Requisitos Previos
+## Requisitos Previos
 
 Antes de ejecutar los proyectos, asegúrate de tener instalados los siguientes componentes en tu máquina local:
 
@@ -18,7 +18,7 @@ Antes de ejecutar los proyectos, asegúrate de tener instalados los siguientes c
 
 ---
 
-## 💻 1. Reto Frontend: Playwright + Cucumber JS
+## 1. Reto Frontend: Playwright + Cucumber JS
 
 El proyecto frontend automatiza el flujo de compras de la web de pruebas [Sauce Demo](https://www.saucedemo.com/) utilizando el patrón de diseño **Page Object Model (POM)**.
 
@@ -58,7 +58,7 @@ El proyecto frontend automatiza el flujo de compras de la web de pruebas [Sauce 
 
 ---
 
-## ⚙️ 2. Reto Backend: Karate DSL + JUnit 5
+## 2. Reto Backend: Karate DSL + JUnit 5
 
 El proyecto backend automatiza las pruebas de integración del recurso `/usuarios` en la API pública de pruebas [ServeRest](https://serverest.dev/).
 
@@ -86,7 +86,7 @@ El proyecto backend automatiza las pruebas de integración del recurso `/usuario
 
 ---
 
-## 🏆 Buenas Prácticas Aplicadas
+## Buenas Prácticas Aplicadas
 
 * **Page Object Model (POM)**: Separación estricta de selectores y lógica de negocio en el frontend para evitar duplicidad y facilitar el mantenimiento.
 * **Fuzzy Matching en Karate**: Validación precisa de contratos de la API mediante tipos de datos dinámicos (`#string`, `#number`) en lugar de datos quemados en código.
