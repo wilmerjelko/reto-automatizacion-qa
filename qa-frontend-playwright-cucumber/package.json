@@ -1,0 +1,28 @@
+{
+  "name": "qa-frontend-playwright-cucumber",
+  "version": "1.0.0",
+  "description": "Suite de pruebas automatizadas para el reto Frontend usando Playwright y Cucumber.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "cucumber-js",
+    "report": "node generate-report.js"
+  },
+  "keywords": [
+    "playwright",
+    "cucumber",
+    "gherkin",
+    "qa",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cucumber/cucumber": "^10.8.0",
+    "playwright": "^1.44.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "multiple-cucumber-html-reporter": "^3.6.2"
+  }
+}
