@@ -1,3 +1,5 @@
+import { config } from '../features/support/config.js';
+
 export class LoginPage {
   /**
    * @param {import('@playwright/test').Page} page
@@ -11,7 +13,7 @@ export class LoginPage {
   }
 
   async navigate() {
-    await this.page.goto('https://www.saucedemo.com/');
+    await this.page.goto(config.baseUrl);
   }
 
   async login(username, password) {
@@ -20,7 +22,19 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
+  /**
+   * Inicia sesión con el usuario estándar definido en la configuración.
+   */
+  async loginAsStandardUser() {
+    const { username, password } = config.users.standard;
+    await this.login(username, password);
+  }
+
   async getErrorMessage() {
     return await this.errorMessage.textContent();
+  }
+
+  async isLoginFormVisible() {
+    return await this.loginButton.isVisible();
   }
 }

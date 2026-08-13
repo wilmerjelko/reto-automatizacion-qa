@@ -13,8 +13,14 @@ out/
 reports/
 test-results/
 cucumber.json
+cucumber-report.json
 karate-reports/
 target/karate-reports/
+traces/
+
+# Local environment overrides
+.env
+.env.local
 
 # Backup and internal files
 BKP/
