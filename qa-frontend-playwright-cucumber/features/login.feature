@@ -1,4 +1,5 @@
 # language: es
+@login
 Requisito: Inicio de sesión en Sauce Demo
 
   Como un cliente de Sauce Demo,
@@ -8,10 +9,12 @@ Requisito: Inicio de sesión en Sauce Demo
   Antecedentes:
     Dado que el usuario navega a la página de inicio de sesión
 
+  @smoke
   Escenario: Inicio de sesión exitoso con credenciales válidas
     Cuando el usuario ingresa el usuario "standard_user" y la contraseña "secret_sauce"
     Y hace clic en el botón de login
     Entonces debería ingresar correctamente a la página de productos
+    Y debería ver 6 productos disponibles en el catálogo
 
   Escenario: Intento de inicio de sesión con usuario bloqueado
     Cuando el usuario ingresa el usuario "locked_out_user" y la contraseña "secret_sauce"
@@ -27,3 +30,12 @@ Requisito: Inicio de sesión en Sauce Demo
       | usuario          | contraseña       | mensaje                                                     |
       | usuario_invalido | secret_sauce     | Username and password do not match any user in this service |
       | standard_user    | clave_incorrecta | Username and password do not match any user in this service |
+      |                  | secret_sauce     | Username is required                                        |
+      | standard_user    |                  | Password is required                                        |
+
+  Escenario: Cierre de sesión desde la página de productos
+    Cuando el usuario ingresa el usuario "standard_user" y la contraseña "secret_sauce"
+    Y hace clic en el botón de login
+    Entonces debería ingresar correctamente a la página de productos
+    Cuando el usuario cierra la sesión
+    Entonces debería volver a la página de inicio de sesión

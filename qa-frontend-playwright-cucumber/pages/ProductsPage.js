@@ -7,6 +7,18 @@ export class ProductsPage {
     this.title = page.locator('.title');
     this.shoppingCartBadge = page.locator('.shopping_cart_badge');
     this.shoppingCartLink = page.locator('.shopping_cart_link');
+    this.menuButton = page.locator('#react-burger-menu-btn');
+    this.logoutLink = page.locator('#logout_sidebar_link');
+    this.inventoryItems = page.locator('.inventory_item');
+  }
+
+  /**
+   * Traduce el nombre visible de un producto al sufijo usado por los
+   * atributos `data-test` de Sauce Demo.
+   * Ej: "Sauce Labs Backpack" -> "sauce-labs-backpack"
+   */
+  static toDataTestSuffix(productName) {
+    return productName.toLowerCase().replace(/ /g, '-');
   }
 
   async getTitle() {
@@ -14,13 +26,13 @@ export class ProductsPage {
   }
 
   async addProductToCart(productName) {
-    const dataTestName = `add-to-cart-${productName.toLowerCase().replace(/ /g, '-')}`;
-    await this.page.locator(`[data-test="${dataTestName}"]`).click();
+    const suffix = ProductsPage.toDataTestSuffix(productName);
+    await this.page.locator(`[data-test="add-to-cart-${suffix}"]`).click();
   }
 
   async removeProductFromCart(productName) {
-    const dataTestName = `remove-${productName.toLowerCase().replace(/ /g, '-')}`;
-    await this.page.locator(`[data-test="${dataTestName}"]`).click();
+    const suffix = ProductsPage.toDataTestSuffix(productName);
+    await this.page.locator(`[data-test="remove-${suffix}"]`).click();
   }
 
   async getCartBadgeCount() {
@@ -30,7 +42,16 @@ export class ProductsPage {
     return '0';
   }
 
+  async getProductCount() {
+    return await this.inventoryItems.count();
+  }
+
   async goToCart() {
     await this.shoppingCartLink.click();
+  }
+
+  async logout() {
+    await this.menuButton.click();
+    await this.logoutLink.click();
   }
 }

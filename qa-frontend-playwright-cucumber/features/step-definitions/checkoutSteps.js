@@ -8,7 +8,7 @@ import { CheckoutPage } from '../../pages/CheckoutPage.js';
 Given('que el usuario inicia sesión con credenciales válidas y está en la página de productos', async function () {
   this.loginPage = new LoginPage(this.page);
   await this.loginPage.navigate();
-  await this.loginPage.login('standard_user', 'secret_sauce');
+  await this.loginPage.loginAsStandardUser();
   this.productsPage = new ProductsPage(this.page);
   const title = await this.productsPage.getTitle();
   expect(title).toBe('Products');
@@ -28,10 +28,23 @@ When('el usuario va al carrito de compras', async function () {
   this.cartPage = new CartPage(this.page);
 });
 
+When('el usuario elimina el producto {string} del carrito', async function (productName) {
+  await this.cartPage.removeProduct(productName);
+});
+
+Then('el carrito debería contener {int} producto(s)', async function (expectedCount) {
+  await expect(this.cartPage.cartItems).toHaveCount(expectedCount);
+});
+
 Then('debería ver los productos {string} y {string} en la lista', async function (prod1, prod2) {
   const items = await this.cartPage.getProductNames();
   expect(items).toContain(prod1);
   expect(items).toContain(prod2);
+});
+
+Then('debería ver el producto {string} en la lista', async function (productName) {
+  const items = await this.cartPage.getProductNames();
+  expect(items).toContain(productName);
 });
 
 When('el usuario avanza al checkout', async function () {
@@ -45,6 +58,11 @@ When('el usuario completa la información con nombre {string}, apellido {string}
 
 When('el usuario finaliza la compra', async function () {
   await this.checkoutPage.finishPurchase();
+});
+
+Then('debería ver el error de checkout {string}', async function (expectedMessage) {
+  const actualMessage = await this.checkoutPage.getErrorMessage();
+  expect(actualMessage).toBe(expectedMessage);
 });
 
 Then('debería ver el mensaje de confirmación {string}', async function (expectedHeader) {

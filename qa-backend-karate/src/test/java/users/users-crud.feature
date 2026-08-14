@@ -4,37 +4,8 @@ Feature: Operaciones CRUD para API de Usuarios (ServeRest)
     * url baseUrl
     * def userSchema = read('schemas/user-schema.json')
     * def listSchema = read('schemas/list-schema.json')
-    
-    # Generador de datos dinámicos para evitar colisiones de correos electrónicos en ejecuciones continuas
-    # Genera nombres y correos aleatorios para cada ejecución de pruebas
-    * def generateUserData =
-    """
-    function() {
-      var rand = Math.floor(Math.random() * 1000000);
-      return {
-        nome: 'Usuario QA ' + rand,
-        email: 'reto_qa_' + rand + '@test.com',
-        password: 'password_safe_123',
-        administrador: 'true'
-      };
-    }
-    """
-
-    # Función auxiliar para traducir los mensajes de respuesta del servidor (portugués -> español)
-    # Permite mantener las aserciones del archivo de pruebas totalmente escritas en español
-    * def translate =
-    """
-    function(msg) {
-      var translations = {
-        'Usuário não encontrado': 'Usuario no encontrado',
-        'Cadastro realizado com sucesso': 'Registro realizado con éxito',
-        'Registro alterado com sucesso': 'Registro modificado con éxito',
-        'Registro excluído com sucesso': 'Registro eliminado con éxito',
-        'Este email já está sendo usado': 'Este correo electrónico ya está en uso'
-      };
-      return translations[msg] || msg;
-    }
-    """
+    # `generateUserData` y `translate` se definen en karate-config.js y quedan
+    # disponibles como variables globales para todos los features.
 
   Scenario: Listar todos los usuarios y validar esquemas de respuesta
     Given path 'usuarios'
@@ -42,12 +13,22 @@ Feature: Operaciones CRUD para API de Usuarios (ServeRest)
     Then status 200
     And match response == listSchema
     And match each response.usuarios == userSchema
+    # La cantidad reportada debe ser consistente con los registros devueltos
+    And match response.quantidade == response.usuarios.length
 
   Scenario: Buscar un usuario inexistente por ID (Caso Negativo)
     Given path 'usuarios', '1234567890abcdef'
     When method get
     Then status 400
     And match translate(response.message) == 'Usuario no encontrado'
+
+  Scenario: Registrar un usuario sin los campos obligatorios (Caso Negativo)
+    Given path 'usuarios'
+    And request {}
+    When method post
+    Then status 400
+    # La API responde con un mensaje de validación por cada campo faltante
+    And match response contains { nome: '#string', email: '#string', password: '#string' }
 
   Scenario: Flujo Completo CRUD (Registrar, Buscar, Actualizar y Eliminar un Usuario)
     * def testUser = generateUserData()

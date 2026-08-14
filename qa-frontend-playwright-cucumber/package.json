@@ -6,7 +6,15 @@
   "type": "module",
   "scripts": {
     "test": "cucumber-js",
+    "test:smoke": "cucumber-js --tags @smoke",
+    "test:login": "cucumber-js --tags @login",
+    "test:checkout": "cucumber-js --tags @checkout",
+    "test:headed": "cross-env HEADLESS=false SLOW_MO=250 cucumber-js",
+    "test:firefox": "cross-env BROWSER=firefox cucumber-js",
     "report": "node generate-report.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "keywords": [
     "playwright",
@@ -23,6 +31,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.44.0",
+    "cross-env": "^10.1.0",
     "multiple-cucumber-html-reporter": "^3.6.2"
   }
 }
