@@ -8,6 +8,10 @@ La solución está dividida de forma modular en dos carpetas dentro del reposito
 
 Ambas suites se ejecutan automáticamente en cada `push` mediante GitHub Actions (`.github/workflows/ci.yml`), publicando los reportes como artefactos descargables.
 
+## Origen del proyecto
+
+El repositorio nació en agosto de 2026 como solución a un ejercicio técnico de un proceso de selección para un puesto de automatización de pruebas, cuyo enunciado y cuya empresa se omiten por reserva, de modo que aquí se publica únicamente el código propio. Las pruebas se ejecutan contra [Sauce Demo](https://www.saucedemo.com/) y [ServeRest](https://serverest.dev/), que son sitios públicos creados para la práctica de automatización, por lo cual el repositorio no contiene datos, accesos ni información de terceros.
+
 ---
 
 ## Requisitos Previos
