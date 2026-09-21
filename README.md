@@ -1,6 +1,6 @@
 # Reto de Automatización QA (Frontend & Backend)
 
-Este repositorio contiene la solución completa a los retos técnicos de automatización de pruebas para la postulación al puesto de **QA Automation Engineer**.
+Este repositorio contiene dos suites de automatización de pruebas, una de interfaz de usuario y otra de API, construidas como proyecto práctico de **QA Automation**.
 
 La solución está dividida de forma modular en dos carpetas dentro del repositorio:
 1. **Frontend**: Automatización de interfaz de usuario utilizando **Playwright + Cucumber (Gherkin)**.
